@@ -1,12 +1,13 @@
-const mongoose = require("mongoose");
+require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/db");
-const Complaint = require("./models/Complaint");
 const complaintRoutes = require("./routes/complaintRoutes");
 const userRoutes = require("./routes/userRoutes");
 const noticeRoutes = require("./routes/noticeRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const cors = require("cors");
+
+
 
 const app = express();
 
@@ -19,16 +20,14 @@ app.use(express.json());
 app.use("/notices", noticeRoutes);
 app.use("/auth", userRoutes);
 app.use("/dashboard", dashboardRoutes);
-mongoose.connect("mongodb://localhost:27017/hostel-management")
-.then(() => {
-    console.log("MongoDB Connected");
-})
-.catch((err) => {
-    console.log(err);
-});
+
 
 app.use("/complaints", complaintRoutes);
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+
+    console.log(`Server running on port ${PORT}`);
+
 });

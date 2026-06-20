@@ -2,21 +2,25 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
 
-  try {
+    try {
 
-    await mongoose.connect(
-      "mongodb://localhost:27017/hostel-management"
-    );
+        await mongoose.connect(
 
-    console.log("MongoDB Connected");
+            process.env.MONGO_URI
 
-  } catch (error) {
+        );
 
-    console.log(error);
+        console.log("MongoDB Connected");
 
-    process.exit(1);
+    }
 
-  }
+    catch (error) {
+
+        console.error(error);
+
+        process.exit(1);
+
+    }
 
 };
 
