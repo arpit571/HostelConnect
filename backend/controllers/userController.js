@@ -96,7 +96,7 @@ const loginUser = async (req, res) => {
         id: user._id,
         role: user.role
       },
-      "hostel-secret-key",
+      process.env.JWT_SECRET,
       {
         expiresIn: "7d"
       }

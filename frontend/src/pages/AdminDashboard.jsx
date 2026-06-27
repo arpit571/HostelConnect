@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import api from "../services/api";
-import StatCard from "../components/StatCard";
+import StatCard from "../components/dashboard/StatCard";
 
 import {
     ClipboardDocumentListIcon,

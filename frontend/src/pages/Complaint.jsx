@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
-import ComplaintCard from "../components/ComplaintCard";
+import ComplaintCard from "../components/dashboard/ComplaintCard";
 
 function Complaints() {
 

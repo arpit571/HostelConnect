@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import api from "../services/api";
 
-import StatCard from "../components/StatCard";
+import StatCard from "../components/dashboard/StatCard";
 
 import {
     ClipboardDocumentListIcon,
@@ -22,19 +22,7 @@ function StudentDashboard() {
 
             try {
 
-                const token =
-                    localStorage.getItem("token");
-
-                const response =
-                    await api.get(
-                        "/dashboard/student",
-                        {
-                            headers: {
-                                Authorization:
-                                    `Bearer ${token}`
-                            }
-                        }
-                    );
+const response = await api.get("/dashboard/student");
 
                 setDashboard(response.data);
 
@@ -74,7 +62,7 @@ function StudentDashboard() {
 
                 <StatCard
                     title="My Complaints"
-                    value={dashboard.myComplaints}
+                    value={dashboard?.myComplaints ?? 0}
                     color="bg-blue-600"
                     icon={
                         <ClipboardDocumentListIcon className="w-7 h-7" />
@@ -83,7 +71,7 @@ function StudentDashboard() {
 
                 <StatCard
                     title="Pending"
-                    value={dashboard.pending}
+                    value={dashboard?.pending ?? 0}
                     color="bg-yellow-500"
                     icon={
                         <ClockIcon className="w-7 h-7" />
@@ -92,7 +80,7 @@ function StudentDashboard() {
 
                 <StatCard
                     title="Resolved"
-                    value={dashboard.resolved}
+                    value={dashboard?.resolved ?? 0}
                     color="bg-green-600"
                     icon={
                         <CheckCircleIcon className="w-7 h-7" />

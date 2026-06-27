@@ -13,8 +13,8 @@ import Complaint from "./pages/Complaint";
 import Notices from "./pages/Notices";
 import NotFound from "./pages/NotFound";
 
-import ProtectedRoute from "./components/ProtectedRoute";
-import Layout from "./components/Layout";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import Layout from "./components/layout/Layout";
 
 function App() {
 
