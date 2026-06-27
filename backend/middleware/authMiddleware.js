@@ -21,7 +21,7 @@ const protect = (req, res, next) => {
     const decoded =
       jwt.verify(
         token,
-        "hostel-secret-key"
+        process.env.JWT_SECRET
       );
 
     req.user = decoded;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../utils/axios";
+import api from "../services/api";
 import AuthLayout from "../components/auth/AuthLayout";
 import AuthInput from "../components/auth/AuthInput";
 import AuthButton from "../components/auth/AuthButton";
@@ -37,7 +37,7 @@ export default function Register() {
     try {
       setLoading(true);
 
-      await axios.post("/auth/register", {
+      await api.post("/auth/register", {
         name: form.name,
         email: form.email,
         password: form.password,
