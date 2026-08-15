@@ -1,7 +1,9 @@
 const Complaint = require("../models/Complaint");
+const generateTrackingId = require("../utils/generateTrackingId");
+const serializeComplaint = require("../utils/complaintSerializer");
+
 
 const getComplaints = async (req, res) => {
-
     try {
 
         let complaints;
@@ -22,7 +24,12 @@ const getComplaints = async (req, res) => {
 
         }
 
-        res.status(200).json(complaints);
+        const serializedComplaints = complaints.map(
+    complaint =>
+        serializeComplaint(complaint, req.user)
+);
+
+res.status(200).json(serializedComplaints);
 
     } catch (error) {
 
@@ -38,7 +45,7 @@ const createComplaint = async (req, res) => {
 
     try {
 
-        const { title } = req.body;
+       const { title, privacyLevel, isSensitive } = req.body;
 
         if (!title) {
             return res.status(400).json({
@@ -62,10 +69,13 @@ const createComplaint = async (req, res) => {
     }
 
         const complaint =
-            await Complaint.create({
-            title,
-            student: req.user.id
-            });
+    await Complaint.create({
+    title,
+    student: req.user.id,
+    privacyLevel: privacyLevel || "normal",
+    isSensitive: isSensitive || false,
+    trackingId: generateTrackingId()
+    });
 
         res.status(201).json(complaint);
 
