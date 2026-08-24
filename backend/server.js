@@ -1,10 +1,18 @@
 require("dotenv").config();
+
+console.log(
+  "Gemini API key loaded:",
+  Boolean(process.env.GEMINI_API_KEY)
+);
+
 const express = require("express");
 const connectDB = require("./config/db");
 const complaintRoutes = require("./routes/complaintRoutes");
 const userRoutes = require("./routes/userRoutes");
 const noticeRoutes = require("./routes/noticeRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const aiComplaintRoutes = require("./routes/aiComplaintRoutes");
+
 const cors = require("cors");
 
 
@@ -23,6 +31,7 @@ app.use("/dashboard", dashboardRoutes);
 
 
 app.use("/complaints", complaintRoutes);
+app.use("/api/ai", aiComplaintRoutes);
 
 const PORT = process.env.PORT || 5000;
 
