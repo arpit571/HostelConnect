@@ -45,13 +45,21 @@ const createComplaint = async (req, res) => {
 
     try {
 
-       const { title, privacyLevel, isSensitive } = req.body;
+    const { title, category, privacyLevel } = req.body;
 
         if (!title) {
             return res.status(400).json({
                 message: "Title is required"
             });
         }
+        const sensitiveCategories = [
+    "harassment",
+    "ragging",
+    "safety"
+];
+
+const isSensitive =
+    sensitiveCategories.includes(category);
 
         const existingComplaint =
     await Complaint.findOne({
@@ -70,14 +78,18 @@ const createComplaint = async (req, res) => {
 
         const complaint =
     await Complaint.create({
-    title,
-    student: req.user.id,
-    privacyLevel: privacyLevel || "normal",
-    isSensitive: isSensitive || false,
-    trackingId: generateTrackingId()
+        title,
+        category: category || "normal",
+        student: req.user.id,
+        privacyLevel: privacyLevel || "normal",
+        isSensitive,
+        trackingId: generateTrackingId()
     });
 
-        res.status(201).json(complaint);
+    const serializedComplaint =
+    serializeComplaint(complaint, req.user);
+
+res.status(201).json(serializedComplaint); 
 
     } catch (error) {
 
