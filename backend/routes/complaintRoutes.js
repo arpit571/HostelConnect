@@ -15,7 +15,7 @@ router.get("/", protect, getComplaints);
 
 router.post("/", protect, createComplaint);
 
-router.put("/:id/status", protect, admin, updateComplaintStatus);
+router.patch("/:id/status", protect, admin, updateComplaintStatus);
 
 router.delete("/:id", protect, admin, deleteComplaint);
 

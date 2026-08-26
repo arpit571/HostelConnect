@@ -53,8 +53,46 @@ const complaintSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      default: "Pending"
+      enum: [
+        "submitted",
+        "under_review",
+        "in_progress",
+        "resolved",
+        "closed"
+      ],
+      default: "submitted"
     },
+
+    statusHistory: [
+      {
+        status: {
+          type: String,
+          enum: [
+            "submitted",
+            "under_review",
+            "in_progress",
+            "resolved",
+            "closed"
+          ],
+          required: true
+        },
+
+        changedBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true
+        },
+
+        note: {
+          type: String
+        },
+
+        changedAt: {
+          type: Date,
+          default: Date.now
+        }
+      }
+    ],
 
     student: {
       type: mongoose.Schema.Types.ObjectId,
