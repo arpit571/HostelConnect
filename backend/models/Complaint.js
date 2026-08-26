@@ -97,6 +97,22 @@ const complaintSchema = new mongoose.Schema(
     student: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
+    },
+
+        privacyLevel: {
+      type: String,
+      enum: ["normal", "private", "confidential", "anonymous"],
+      default: "normal"
+    },
+
+    trackingId: {
+      type: String,
+      unique: true
+    },
+
+    isSensitive: {
+      type: Boolean,
+      default: false
     }
   },
   {
